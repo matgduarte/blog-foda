@@ -1,0 +1,25 @@
+DROP DATABASE IF EXISTS blog;
+
+CREATE DATABASE blog;
+
+USE blog;
+
+CREATE TABLE usuario (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(50) NOT NULL,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  senha VARCHAR(60) NOT NULL,
+  data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  ativo tinyint(4) NOT  NULL DEFAULT 0,
+  adm tinyint(4) NOT  NULL DEFAULT 0
+);
+
+CREATE TABLE post (
+  id INT AUTO_INCREMENT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  titulo VARCHAR(255) NOT NULL,
+  texto TEXT NOT NULL,
+  data_postagem TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  autor_id INT,
+  KEY post_autor (autor_id),
+  CONSTRAINT post_autor FOREIGN KEY (autor_id) REFERENCES usuario(id)
+);
